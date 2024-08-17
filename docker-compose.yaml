@@ -1,0 +1,20 @@
+services:
+  web:
+    environment:
+      - WATCHPACK_POLLING=true
+    build: .
+    command: npm run devserver
+    ports:
+      - 5500:5500
+    volumes:
+      - .:/code
+      - /code/node_modules/
+    develop:
+      watch:
+        - action: sync
+          path: ./sass
+          target: /code/sass
+          ignore:
+            - /node_modules
+        - action: rebuild
+          path: package.json
